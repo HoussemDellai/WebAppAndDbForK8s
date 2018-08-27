@@ -9,7 +9,6 @@ COPY ["WebApp.csproj", "WebApp/"]
 RUN dotnet restore "WebApp/WebApp.csproj"
 COPY . .
 WORKDIR "/src"
-RUN ls
 RUN dotnet build "WebApp.csproj" -c Release -o /app
 
 FROM build AS publish
