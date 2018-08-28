@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 3 # tells deployment to run 2 pods matching the template
+  replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: houssemdocker/webappfork8s:v2
+        image: houssemdocker/webappfork8s:v10
         ports:
         - containerPort: 80
+        #added by me
+        env :
+          - name: DbConnectionString
+            value: Server=mssql;Database=ProductsDB;User=sa;Password=@Aa123456;
+            #value: Server=192.168.99.100,32714;Database=ProductsDB;User=sa;Password=@Aa123456; // works
+            #value: mssql #mssql-service #mssql #"DbConnectionString value here ohooo"
+        
         
