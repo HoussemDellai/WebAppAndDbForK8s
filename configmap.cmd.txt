@@ -1,0 +1,26 @@
+# This is the cmd used to create a config map with the specified key values
+kubectl create configmap mssql-config --from-literal mssql.database=ProductsDB --from-literal mssql.user=sa
+
+# The following cmd :
+kubectl get configmap -o yaml
+# returns the following data:
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    mssql.database: ProductsDB
+    mssql.user: sa
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: 2018-08-30T18:46:53Z
+    name: mssql-config
+    namespace: default
+    resourceVersion: "160405"
+    selfLink: /api/v1/namespaces/default/configmaps/mssql-config
+    uid: 0fe39d8b-ac85-11e8-aaf7-080027263cf2
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+  

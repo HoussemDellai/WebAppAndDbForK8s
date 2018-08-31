@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 1 # tells deployment to run 2 pods matching the template
+  replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
@@ -18,9 +18,26 @@ spec:
         ports:
         - containerPort: 80
         #added by me
-        env :
+        env:
+        # Define the environment variable
           - name: DbConnectionString
-            value: Server=mssql;Database=ProductsDB;User=sa;Password=@Aa123456;
+            valueFrom:
+              secretKeyRef:
+                # The ConfigMap containing the value you want to assign
+                name: app-secret
+                # Specify the key associated with the value
+                key: SecretDbConnectionString
+            # if we want to use ConfigMap
+            #valueFrom:
+              #configMapKeyRef:
+                #name: app-configmap
+                # Specify the key associated with the value
+                #key: DbConnectionString
+# old code using plain connection string
+#         env:
+#         - name: DbConnectionString
+#           value: Server=mssql;Database=ProductsDB;User=sa;Password=@Aa123456;
+            #value: Server=mssql;Database=ProductsDB;User=sa;Password=$(SA_PASSWORD);// dosn't work
             #value: Server=192.168.99.100,32714;Database=ProductsDB;User=sa;Password=@Aa123456; // works
             #value: mssql #mssql-service #mssql #"DbConnectionString value here ohooo"
         
