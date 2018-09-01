@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: webapp-k8s-service
+  labels:
+    app: webapp-k8s
+spec:
+  selector:
+    app: webapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    #nodePort: 30123
+  type: LoadBalancer
